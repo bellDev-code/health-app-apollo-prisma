@@ -10,6 +10,7 @@ export default {
             OR: [{ username }, { email }],
           },
         });
+
         if (exitingUser) {
           throw new Error("username과 email이 같은 계정이 존재합니다.");
         }
