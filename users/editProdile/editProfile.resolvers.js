@@ -6,7 +6,8 @@ export default {
   Mutation: {
     editProfile: async (
       _,
-      { username, email, name, password: newPassword, token }
+      { username, email, name, password: newPassword },
+      { loggedInUser }
     ) => {
       let hashPassword = null;
 
@@ -14,10 +15,8 @@ export default {
         hashPassword = await bcrypt.hash(newPassword, 10);
       }
 
-      const { id } = await jwt.verify(token, process.env.SECRET_KEY);
-
       const updateUser = await client.user.update({
-        where: { id },
+        where: { id: loggedInUser.id },
         data: {
           username,
           email,
