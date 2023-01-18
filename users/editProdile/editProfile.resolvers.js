@@ -1,14 +1,14 @@
 import client from "../../client";
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
 
 export default {
   Mutation: {
     editProfile: async (
       _,
       { username, email, name, password: newPassword },
-      { loggedInUser }
+      { loggedInUser, protectResolver }
     ) => {
+      protectResolver(loggedInUser);
       let hashPassword = null;
 
       if (newPassword) {
