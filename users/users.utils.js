@@ -20,8 +20,13 @@ export const getUser = async (token) => {
   }
 };
 
-export const protectResolver = (user) => {
-  if (!user) {
-    throw new Error("로그인이 필요합니다.");
-  }
-};
+export const protectedResolver =
+  (ourResolver) => (root, args, context, info) => {
+    if (!context.loggedInUser) {
+      return {
+        ok: false,
+        error: "이 작업을 수행하려면 로그인 해주세요.",
+      };
+    }
+    return ourResolver(root, args, context, info);
+  };
