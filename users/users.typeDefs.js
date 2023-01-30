@@ -10,8 +10,4 @@ export default gql`
     createdAt: String!
     updatedAt: String!
   }
-
-  type Query {
-    seeProfile(username: String): User
-  }
 `;
