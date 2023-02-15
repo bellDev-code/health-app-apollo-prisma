@@ -16,8 +16,18 @@ model User {
   email String @unique
   name String?
   password String
+  positions Position[]
   following User[] @relation("FollowersRelation")
   followers User[] @relation("FollowersRelation")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Position {
+  id Int @id @default(autoincrement())
+  latitude Float
+  longitude Float
+  timestamp DateTime @default(now())
+  user User @relation(fields: [userId], references: [id])
+  userId Int
 }
