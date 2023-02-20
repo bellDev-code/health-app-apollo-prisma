@@ -2,10 +2,10 @@ import gql from "graphql-tag";
 
 export default gql`
   type Mutation {
-    createPosition(
+    editPosition(
       latitude: Float!
       longitude: Float!
       timestamp: String!
-    ): Position
+    ): MutationResponse!
   }
 `;

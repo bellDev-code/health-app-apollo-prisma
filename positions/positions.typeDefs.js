@@ -6,6 +6,7 @@ export default gql`
     latitude: Float!
     longitude: Float!
     timestamp: String!
+    updatedAt: String!
     user: [User]
   }
 `;
