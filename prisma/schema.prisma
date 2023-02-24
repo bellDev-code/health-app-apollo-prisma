@@ -16,6 +16,7 @@ model User {
   email String @unique
   name String?
   password String
+  profileImage String?
   positions Position[]
   following User[] @relation("FollowersRelation")
   followers User[] @relation("FollowersRelation")
