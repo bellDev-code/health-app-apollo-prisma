@@ -20,7 +20,6 @@ const server = new ApolloServer({
 
 const startServer = async () => {
   await server.start();
-
   app.use(
     cors(),
     bodyParser.json(),
@@ -34,7 +33,7 @@ const startServer = async () => {
   );
 
   await new Promise((resolve) => httpServer.listen({ port: PORT }, resolve));
-  console.log(`🚀 Server ready at http://localhost:${PORT}`);
+  console.log(`🚀 Go to the fuxxing Gym!! http://localhost:${PORT}`);
 };
 
 startServer();

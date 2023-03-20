@@ -7,6 +7,7 @@ export default gql`
     email: String!
     name: String
     password: String!
+    profileImage: String
     createdAt: String!
     updatedAt: String!
     following: [User]
