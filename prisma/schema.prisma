@@ -18,6 +18,7 @@ model User {
   password String
   profileImage String?
   positions Position[]
+  calendar Calendar[]
   following User[] @relation("FollowersRelation")
   followers User[] @relation("FollowersRelation")
   createdAt DateTime @default(now())
@@ -28,10 +29,18 @@ model Position {
   id Int @id @default(autoincrement())
   latitude Float
   longitude Float
-  timestamp DateTime 
   user User @relation(fields: [userId], references: [id])
   userId Int
   updatedAt DateTime @updatedAt
+
+  @@unique([userId])
+}
+
+model Calendar {
+  id Int @id @default(autoincrement())
+  date DateTime
+  user User @relation(fields: [userId], references: [id])
+  userId Int
 
   @@unique([userId])
 }
