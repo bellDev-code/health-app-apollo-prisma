@@ -19,6 +19,7 @@ model User {
   profileImage String?
   positions Position[]
   calendar Calendar[]
+  certifications Certification[]
   following User[] @relation("FollowersRelation")
   followers User[] @relation("FollowersRelation")
   createdAt DateTime @default(now())
@@ -29,7 +30,10 @@ model Position {
   id Int @id @default(autoincrement())
   latitude Float
   longitude Float
+  gymname String?
+  gymTime DateTime?
   user User @relation(fields: [userId], references: [id])
+  certification Certification[]
   userId Int
   updatedAt DateTime @updatedAt
 
@@ -40,6 +44,17 @@ model Calendar {
   id Int @id @default(autoincrement())
   date DateTime
   user User @relation(fields: [userId], references: [id])
+  userId Int
+
+  @@unique([userId])
+}
+
+model Certification {
+  id Int @id @default(autoincrement())
+  certification Boolean @default(false)
+  user User @relation(fields: [userId], references: [id])
+  position Position @relation(fields: [positionId], references: [id])
+  positionId Int
   userId Int
 
   @@unique([userId])
