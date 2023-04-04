@@ -28,10 +28,10 @@ model User {
 
 model Position {
   id Int @id @default(autoincrement())
-  latitude Float
-  longitude Float
+  latitude Decimal @db.Decimal(10, 6)
+  longitude Decimal @db.Decimal(10, 6)
   gymname String?
-  gymTime DateTime?
+  gymTime String?
   user User @relation(fields: [userId], references: [id])
   certification Certification[]
   userId Int
@@ -42,7 +42,7 @@ model Position {
 
 model Calendar {
   id Int @id @default(autoincrement())
-  date DateTime
+  date String
   user User @relation(fields: [userId], references: [id])
   userId Int
 

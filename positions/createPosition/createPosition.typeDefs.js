@@ -3,9 +3,10 @@ import gql from "graphql-tag";
 export default gql`
   type Mutation {
     createPosition(
-      latitude: Float!
-      longitude: Float!
-      timestamp: String!
-    ): Position
+      latitude: String!
+      longitude: String!
+      gymname: String
+      gymTime: String
+    ): MutationResponse!
   }
 `;

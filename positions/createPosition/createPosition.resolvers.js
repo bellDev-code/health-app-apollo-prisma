@@ -4,12 +4,19 @@ import { protectedResolver } from "../../users/users.utils";
 export default {
   Mutation: {
     createPosition: protectedResolver(
-      async (_, { latitude, longitude, timestamp }, { loggedInUser }) => {
+      async (
+        _,
+        { latitude, longitude, gymname, gymTime },
+        { loggedInUser }
+      ) => {
+        const changeLat = Number(latitude).toFixed(6);
+        const changeLong = Number(longitude).toFixed(6);
         await client.position.create({
           data: {
-            latitude,
-            longitude,
-            timestamp,
+            latitude: changeLat,
+            longitude: changeLong,
+            gymname,
+            gymTime,
             user: {
               connect: {
                 id: loggedInUser.id,
