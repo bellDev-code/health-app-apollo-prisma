@@ -11,6 +11,7 @@ export default {
       ) => {
         const changeLat = Number(latitude).toFixed(6);
         const changeLong = Number(longitude).toFixed(6);
+
         await client.position.create({
           data: {
             latitude: changeLat,

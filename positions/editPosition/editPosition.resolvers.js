@@ -4,7 +4,11 @@ import { protectedResolver } from "../../users/users.utils";
 export default {
   Mutation: {
     editPosition: protectedResolver(
-      async (_, { latitude, longitude, timestamp }, { loggedInUser }) => {
+      async (
+        _,
+        { latitude, longitude, gymname, gymTime },
+        { loggedInUser }
+      ) => {
         const position = await client.position.findUnique({
           where: {
             id: loggedInUser.id,
@@ -26,7 +30,8 @@ export default {
             data: {
               latitude,
               longitude,
-              timestamp,
+              gymname,
+              gymTime,
             },
           });
         }
