@@ -31,7 +31,6 @@ model Position {
   latitude Decimal @db.Decimal(10, 6)
   longitude Decimal @db.Decimal(10, 6)
   gymname String?
-  gymTime String?
   user User @relation(fields: [userId], references: [id])
   certification Certification[]
   userId Int

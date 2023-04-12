@@ -6,7 +6,6 @@ export default gql`
       latitude: String!
       longitude: String!
       gymname: String
-      gymTime: String
     ): MutationResponse!
   }
 `;
