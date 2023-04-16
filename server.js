@@ -25,9 +25,16 @@ const startServer = async () => {
     bodyParser.json(),
     expressMiddleware(server, {
       context: async ({ req }) => {
-        return {
-          loggedInUser: await getUser(req.headers.token),
-        };
+        const authorization = req.headers.authorization;
+        // console.log(authorization, "auth");
+        if (authorization) {
+          const token = authorization;
+          const loggedInUser = await getUser(token);
+          return {
+            loggedInUser,
+          };
+        }
+        return {};
       },
     })
   );
