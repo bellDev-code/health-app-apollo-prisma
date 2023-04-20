@@ -15,6 +15,10 @@ const httpServer = http.createServer(app);
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  formatError: (formattedError, error) => {
+    console.log(error);
+    return formattedError;
+  },
   plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
 });
 
@@ -25,8 +29,10 @@ const startServer = async () => {
     bodyParser.json(),
     expressMiddleware(server, {
       context: async ({ req }) => {
+        if (process.env.NODE_ENV === "development") {
+          console.log(req.body.operationName);
+        }
         const authorization = req.headers.authorization;
-        // console.log(authorization, "auth");
         if (authorization) {
           const token = authorization;
           const loggedInUser = await getUser(token);
@@ -38,6 +44,12 @@ const startServer = async () => {
       },
     })
   );
+
+  app.use((err, req, res, next) => {
+    if (err) {
+      console.error(err);
+    }
+  });
 
   await new Promise((resolve) => httpServer.listen({ port: PORT }, resolve));
   console.log(`🚀 Go to the fuxxing Gym!! http://localhost:${PORT}`);
