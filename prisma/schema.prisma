@@ -17,11 +17,14 @@ model User {
   name String?
   password String
   profileImage String?
-  positions Position[]
-  calendar Calendar[]
-  certifications Certification[]
+  positions Position[] 
+  alarms Alarm[] 
+  certifications Certification[] 
+  calanders Calendar[]
+
   following User[] @relation("FollowersRelation")
   followers User[] @relation("FollowersRelation")
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -32,11 +35,28 @@ model Position {
   longitude Decimal @db.Decimal(10, 6)
   gymname String?
   user User @relation(fields: [userId], references: [id])
-  certification Certification[]
   userId Int
+  certification Certification[] 
   updatedAt DateTime @updatedAt
+}
 
-  @@unique([userId])
+model Alarm {
+  id Int @id @default(autoincrement())
+  time String
+  dayOfWeek DayOfWeek
+  user User @relation(fields: [userId], references: [id])
+  userId Int
+
+  @@unique([userId, dayOfWeek])
+}
+enum DayOfWeek {
+  MONDAY
+  TUESDAY
+  WEDNESDAY
+  THURSDAY
+  FRIDAY
+  SATURDAY
+  SUNDAY
 }
 
 model Calendar {
@@ -52,9 +72,8 @@ model Certification {
   id Int @id @default(autoincrement())
   certification Boolean @default(false)
   user User @relation(fields: [userId], references: [id])
+  userId Int
   position Position @relation(fields: [positionId], references: [id])
   positionId Int
-  userId Int
 
-  @@unique([userId])
 }
