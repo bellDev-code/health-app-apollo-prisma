@@ -6,7 +6,7 @@ export default {
     createPosition: protectedResolver(
       async (_, { latitude, longitude, gymname }, { loggedInUser }) => {
         return await client.$transaction(async (prisma) => {
-          const existingPosition = await prisma.position.findUnique({
+          const existingPosition = await prisma.position.findFirst({
             where: {
               userId: loggedInUser.id,
             },
