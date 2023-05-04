@@ -6,7 +6,7 @@ export default {
   Mutation: {
     login: async (_, { username, password }) => {
       try {
-        const user = await client.user.findFirst({
+        const user = await client.user.findUnique({
           where: { username },
         });
 
